@@ -1,0 +1,540 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux基础(二) | TatoのBlog</title><meta name="keywords" content="Linux,Shell"><meta name="author" content="一人千面"><meta name="copyright" content="一人千面"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux入门之Shell基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux基础(二)">
+<meta property="og:url" content="https://tatocode.github.io/2021/06/22/shell%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="TatoのBlog">
+<meta property="og:description" content="Linux入门之Shell基础">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/wineqq/image/raw/master/img/linux.jpg">
+<meta property="article:published_time" content="2021-06-22T09:51:52.725Z">
+<meta property="article:modified_time" content="2021-06-22T09:50:46.639Z">
+<meta property="article:author" content="一人千面">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/wineqq/image/raw/master/img/linux.jpg"><link rel="shortcut icon" href="https://gitee.com/wineqq/image/raw/master/img/blog.png"><link rel="canonical" href="https://tatocode.github.io/2021/06/22/shell%E7%BC%96%E7%A8%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 一人千面","link":"链接: ","source":"来源: TatoのBlog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux基础(二)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-22 17:50:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/wineqq/image/raw/master/img/100.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/wineqq/image/raw/master/img/linux.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TatoのBlog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux基础(二)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-22T09:51:52.725Z" title="发表于 2021-06-22 17:51:52">2021-06-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-22T09:50:46.639Z" title="更新于 2021-06-22 17:50:46">2021-06-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%89%8B%E5%86%8C/">手册</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux基础(二)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Shell概述"><a href="#Shell概述" class="headerlink" title="Shell概述"></a>Shell概述</h1><h2 id="什么是Shell"><a href="#什么是Shell" class="headerlink" title="什么是Shell"></a>什么是Shell</h2><p>Shell是一个命令行解释器，它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
+<p>Shell还是一个功能强大的编程语言，易编写，易调试，灵活性较强。Shell是解释执行的脚本语言，在Shell中可以直接调用Linux系统命令。</p>
+<h2 id="Shell分类"><a href="#Shell分类" class="headerlink" title="Shell分类"></a>Shell分类</h2><ol>
+<li><p>Bourne Shell：从1979年起Unix就开始使用Bourne Shell，Bourne Shell的主文件名为sh。</p>
+</li>
+<li><p>C Shell：C Shell主要在BSD版的Unix系统中使用，其语法和C语言相似而得名。</p>
+<blockquote>
+<p>Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括<code>sh</code>, <code>ksh</code>, <code>Bash</code>, <code>psh</code>, <code>zsh</code>；C家族主要包括：<code>csh</code>,<code>tcsh</code>.</p>
+</blockquote>
+</li>
+<li><p>Bash：Bash和sh兼容，现在使用的Linux就是使用Bash作为用户的基本Shell。</p>
+</li>
+</ol>
+<h2 id="Linux中支持的Shell"><a href="#Linux中支持的Shell" class="headerlink" title="Linux中支持的Shell"></a>Linux中支持的Shell</h2><p><code>/etc/shells</code></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620212843035.png" alt="image-20210620212843035"></p>
+<h1 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h1><h2 id="echo输出命令"><a href="#echo输出命令" class="headerlink" title="echo输出命令"></a><code>echo</code>输出命令</h2><p><code>echo [选项] 输出内容</code></p>
+<p>常用选项</p>
+<p><code>-e</code>：支持反斜线<code>\</code>控制的字符转换</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620213620262.png" alt="image-20210620213620262"></p>
+<blockquote>
+<p><code>echo</code>也支持颜色输出：</p>
+<p><code>echo -e &quot;\e[1; [颜色代码] [输出内容] \e[0m&quot;</code></p>
+<p>颜色代码</p>
+<p><code>30m</code>：黑色</p>
+<p><code>31m</code>：红色</p>
+<p><code>32m</code>：绿色</p>
+<p><code>33m</code>：黄色</p>
+<p><code>34m</code>：蓝色</p>
+<p><code>35m</code>：洋红</p>
+<p><code>36m</code>：青色</p>
+<p><code>37m</code>：白色</p>
+</blockquote>
+<p><strong>操作截图</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620214625430.png" alt="image-20210620214625430"></p>
+<h2 id="第一个脚本"><a href="#第一个脚本" class="headerlink" title="第一个脚本"></a>第一个脚本</h2><p><code>vim hello.sh</code></p>
+<p>键入以下内容：</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620215308099.png" alt="image-20210620215308099"></p>
+<p><strong>说明：第一行<code>#!/bin/bash</code>不能省略，不是注释内容！</strong></p>
+<h2 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h2><p>【推荐】方式一：</p>
+<p>赋予执行权限，直接运行，</p>
+<p><code>chmod 755 hello.sh</code></p>
+<p><code>./hello.sh</code></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620215720631.png" alt="image-20210620215720631"></p>
+<p>方式二：</p>
+<p>通过bash调用执行脚本，可以连执行权限都可以不用设置</p>
+<p><code>bash hello.sh</code></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620215818660.png" alt="image-20210620215818660"></p>
+<h1 id="Bash的基本功能"><a href="#Bash的基本功能" class="headerlink" title="Bash的基本功能"></a>Bash的基本功能</h1><h2 id="历史命令与命令补全"><a href="#历史命令与命令补全" class="headerlink" title="历史命令与命令补全"></a>历史命令与命令补全</h2><p><code>history [选项] [历史命令保存文件]</code></p>
+<p>常用选项</p>
+<p><code>-c</code>：清空历史命令</p>
+<p><code>-w</code>：把缓存中的历史命令写入到历史命令保存文件，默认位置<code>~/.bash_history</code></p>
+<p><strong>历史命令默认会保存1000条，可以在环境变量配置文件<code>/etc/profile</code>中进行修改！</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620221409490.png" alt="image-20210620221409490"></p>
+<h3 id="历史命令的调用"><a href="#历史命令的调用" class="headerlink" title="历史命令的调用"></a><strong>历史命令的调用</strong></h3><ul>
+<li>使用上、下箭头调用以前的历史命令</li>
+<li>使用<code>!n</code>重复执行第n条历史命令</li>
+<li>使用<code>!!</code>重复执行上一条命令</li>
+<li>使用<code>!字串</code>重复执行最后一条以该字串开头的命令</li>
+</ul>
+<h3 id="命令与文件补全"><a href="#命令与文件补全" class="headerlink" title="命令与文件补全"></a><strong>命令与文件补全</strong></h3><p>在Bash中，命令与文件补全是非常方便与常用的功能，我们只要在输入命令或文件时，按<code>Tab</code>键，就会自动进行补全。</p>
+<h2 id="命令别名和常用快捷键"><a href="#命令别名和常用快捷键" class="headerlink" title="命令别名和常用快捷键"></a>命令别名和常用快捷键</h2><h3 id="命令别名"><a href="#命令别名" class="headerlink" title="命令别名"></a>命令别名</h3><p><code>alias 别名=&#39;原命令&#39;</code></p>
+<p>定义别名，但是此种方式定义的别名只会临时生效。</p>
+<p><code>alias</code></p>
+<p>查询命令别名</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620222615496.png" alt="image-20210620222615496"></p>
+<h4 id="命令的执行顺序"><a href="#命令的执行顺序" class="headerlink" title="命令的执行顺序"></a><strong>命令的执行顺序</strong></h4><ol>
+<li>第一顺序执行用绝对路径或相对路径执行的命令。</li>
+<li>第二顺序执行别名。</li>
+<li>第三顺序执行Bash的内部命令。</li>
+<li>第四顺序执行按照<code>$PATH</code>环境变量定义的目录查找顺序找到的第一个命令。</li>
+</ol>
+<h4 id="让别名永久生效"><a href="#让别名永久生效" class="headerlink" title="让别名永久生效"></a><strong>让别名永久生效</strong></h4><p>需要写入下面的文档中：</p>
+<p><code>vim ~/.bashrc</code></p>
+<h4 id="删除别名"><a href="#删除别名" class="headerlink" title="删除别名"></a><strong>删除别名</strong></h4><p><code>unalias 别名</code></p>
+<h3 id="Bash常用快捷键"><a href="#Bash常用快捷键" class="headerlink" title="Bash常用快捷键"></a>Bash常用快捷键</h3><p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620223656227.png" alt="image-20210620223656227"></p>
+<h2 id="输入输出重定向"><a href="#输入输出重定向" class="headerlink" title="输入输出重定向"></a>输入输出重定向</h2><h3 id="标准输入输出"><a href="#标准输入输出" class="headerlink" title="标准输入输出"></a>标准输入输出</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>设备文件名</th>
+<th>文件描述符</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>键盘</td>
+<td><code>/dev/stdin</code></td>
+<td>0</td>
+<td>标准输入</td>
+</tr>
+<tr>
+<td>显示器</td>
+<td><code>/dev/stdout</code></td>
+<td>1</td>
+<td>标准输出</td>
+</tr>
+<tr>
+<td>显示器</td>
+<td><code>/dev/stderr</code></td>
+<td>2</td>
+<td>标准错误输出</td>
+</tr>
+</tbody></table>
+<h3 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h3><p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620224507931.png" alt="image-20210620224507931"></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620225436444.png" alt="image-20210620225436444"></p>
+<h3 id="输入重定向"><a href="#输入重定向" class="headerlink" title="输入重定向"></a>输入重定向</h3><p><code>wc [选项] [文件名]</code></p>
+<p>常用选项：</p>
+<p><code>-c</code>：统计字节数</p>
+<p><code>-w</code>：统计单词数</p>
+<p><code>-l</code>：统计行数</p>
+<p><code>wc</code></p>
+<p>统计下面输入的内容，按<code>Ctrl</code>+<code>D</code>结束输入，得到的结果分别代表：行数，单词数（包含换行符），字节数。</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620231239355.png" alt="image-20210620231239355"></p>
+<p><code>命令 &lt; 文件输入</code></p>
+<p>把文件作为命令的输入</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210620231832777.png" alt="image-20210620231832777"></p>
+<h2 id="多命令顺序执行与管道符"><a href="#多命令顺序执行与管道符" class="headerlink" title="多命令顺序执行与管道符"></a>多命令顺序执行与管道符</h2><h3 id="多命令顺序执行"><a href="#多命令顺序执行" class="headerlink" title="多命令顺序执行"></a>多命令顺序执行</h3><table>
+<thead>
+<tr>
+<th>多命令执行符</th>
+<th>格式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>;</code></td>
+<td><code>命令1;命令2</code></td>
+<td>多个命令顺序执行，命令之间没有任何逻辑联系</td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td><code>命令1&amp;&amp;命令2</code></td>
+<td>逻辑与。当命令1正确执行，命令2才会执行；当命令1执行不正确，则命令2不会执行</td>
+</tr>
+<tr>
+<td>`</td>
+<td></td>
+<td>`</td>
+</tr>
+</tbody></table>
+<h4 id="dd命令"><a href="#dd命令" class="headerlink" title="dd命令"></a><code>dd</code>命令</h4><p><code>dd if=输入文件 of=输出文件 bs=字节数 count=个数</code></p>
+<p>选项</p>
+<p><code>if=输入文件</code>：指定原文件或原设备</p>
+<p><code>of=输出文件</code>：指定目标文件或目标设备</p>
+<p><code>bs=字节数</code>：指定一次输入/输出多少字节，即把这些字节看做一个数据块</p>
+<p><code>count=个数</code>：指定输入/输出多少个数据块</p>
+<h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符|"></a>管道符<code>|</code></h3><p><code>命令1 | 命令2</code></p>
+<p>命令1 的正确输出作为 命令2 的操作对象。</p>
+<p><em>命令1必须有正确的输出命令2才能执行</em></p>
+<h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a><code>grep</code></h4><p><code>grep [选项] 搜索内容 文件名</code></p>
+<p>常用选项：</p>
+<p><code>-i</code>：忽略大小写</p>
+<p><code>-n</code>：输出行号</p>
+<p><code>-v</code>：反向查找</p>
+<p><code>--color=auto</code>：搜索出的关键字用颜色显示</p>
+<h2 id="通配符和特殊符号"><a href="#通配符和特殊符号" class="headerlink" title="通配符和特殊符号"></a>通配符和特殊符号</h2><h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>?</code></td>
+<td>匹配一个任意字符</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>匹配0个或任意多个任意字符，也就是可以匹配任何内容</td>
+</tr>
+<tr>
+<td><code>[]</code></td>
+<td>匹配括号中的任意一个字符。例如：<code>[abc]</code>代表一定匹配一个字符，或者是<code>a</code>，或者是<code>b</code>，或者是<code>c</code></td>
+</tr>
+<tr>
+<td><code>[-]</code></td>
+<td>匹配括号中任意一个字符，<code>-</code>代表一个范围。例如：<code>[a-z]</code>代表匹配一个小写字母</td>
+</tr>
+<tr>
+<td><code>[^]</code></td>
+<td>逻辑非。代表匹配不是括号中的一个字符。例如：<code>[^0-9]</code>代表匹配一个不是数字的字符</td>
+</tr>
+</tbody></table>
+<p><strong>通配符是用来匹配文件名的！</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621095029176.png" alt="image-20210621095029176"></p>
+<h3 id="Bash中的其它特殊符号"><a href="#Bash中的其它特殊符号" class="headerlink" title="Bash中的其它特殊符号"></a>Bash中的其它特殊符号</h3><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&#39;&#39;</code></td>
+<td>单引号。在单引号中的所有特殊符号，如<code>$</code>和`` `都没有特殊含义</td>
+</tr>
+<tr>
+<td><code>&quot;&quot;</code></td>
+<td>双引号。在双引号中特殊符号都没有特殊含义，但是<code>$</code>、`` <code>和</code>`是例外，拥有”调用变量的值“，”引用命令“和”转义符“的特殊含义</td>
+</tr>
+<tr>
+<td><code>``</code></td>
+<td>反引号。反引号括起来的内容是系统命令，在Bash中会先执行它。和<code>$()</code>作用一样，不过推荐使用<code>$()</code>，因为反引号非常容易看错。</td>
+</tr>
+<tr>
+<td><code>$()</code></td>
+<td>和反引号作用一样，用来引用系统命令</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>在Shell脚本中，<code>#</code>开头的行表示注释</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>用于调用变量的值，如需要调用变量name的值时，需要用<code>$name</code>的方式得到变量的值</td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>转义符。跟在<code>\</code>之后的特殊符号将失去特殊含义，变为普通字符。如<code>\$</code>将输出<code>$</code>符号，而不是当作变量引用</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621111201545.png" alt="image-20210621111201545"></p>
+<h1 id="Bash的变量"><a href="#Bash的变量" class="headerlink" title="Bash的变量"></a>Bash的变量</h1><h2 id="用户自定义的变量"><a href="#用户自定义的变量" class="headerlink" title="用户自定义的变量"></a>用户自定义的变量</h2><h3 id="什么是变量"><a href="#什么是变量" class="headerlink" title="什么是变量"></a>什么是变量</h3><p>变量是计算机内存的单元，其中存放的值可以改变。当Shell脚本需要保存一些信息时，如一个文件名或是一个数字，就把它存放在一个变量中。每个变量有一个名字，所以很容易引用它。使用变量可以保存有用的信息，使系统获知用户相关设置，变量也可以用于保存暂时信息。</p>
+<h3 id="变量设置规则"><a href="#变量设置规则" class="headerlink" title="变量设置规则"></a>变量设置规则</h3><ul>
+<li>变量名可以由字母、数字和下划线组成，但是不能以数字开头。如果变量名是<code>2name</code>，则是错误的。</li>
+<li>在Bash中，变量的默认类型都是字符串类型，如果要进行数值计算，则必须指定变量类型为数值型。</li>
+<li>变量用等号连接值，等号左右两侧不能有空格。</li>
+<li>变量的值如果有空格，需要使用单引号或者双引号包括。</li>
+<li>在变量的值中，可以使用<code>\</code>转义符。</li>
+<li>如果需要增加变量的值，那么可以进行变量值的叠加。不过变量需要用双引号包含<code>$变量名</code>或使用<code>$&#123;变量名&#125;</code>包含。</li>
+<li>如果是把命令的结果作为变量值赋予变量，则需要使用反引号或<code>$()</code>包含命令。</li>
+<li>环境变量名建议大写，便于区分。</li>
+</ul>
+<h3 id="变量的分类"><a href="#变量的分类" class="headerlink" title="变量的分类"></a>变量的分类</h3><ul>
+<li><p>用户自定义变量</p>
+<ol>
+<li><p><strong>变量定义：</strong><code>变量名=变量值</code></p>
+</li>
+<li><p><strong>变量叠加：</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621120044705.png" alt="image-20210621120044705"></p>
+</li>
+<li><p><strong>查看变量：</strong><code>set</code></p>
+</li>
+<li><p><strong>删除变量：</strong><code>unset 变量名</code></p>
+</li>
+</ol>
+</li>
+<li><p>环境变量：这种变量中主要保存的是系统操作环境相关的数据。</p>
+</li>
+<li><p>位置参数变量：这种变量主要是用来向脚本当中传递参数或数据的，变量名不能自定义，变量作用是固定的。</p>
+</li>
+<li><p>预定义变量：是Bash中已经定义好的变量，变量名不能自定义，变量作用也是固定的。</p>
+</li>
+</ul>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="环境变量是什么"><a href="#环境变量是什么" class="headerlink" title="环境变量是什么"></a>环境变量是什么</h3><p>用户自定义的变量只在当前的Shell中生效，而环境变量会在当前的Shell和这个Shell的所有子Shell中生效。如果把环境变量写入相应的配置文件，那么这个环境变量就会在所有的Shell中生效。</p>
+<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>声明变量：<code>export 变量名=变量值</code></p>
+<p>查询变量：<code>env</code></p>
+<p>删除变量：<code>unset 变量名</code></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621205321061.png" alt="image-20210621205321061"></p>
+<h3 id="系统常见环境变量"><a href="#系统常见环境变量" class="headerlink" title="系统常见环境变量"></a>系统常见环境变量</h3><ul>
+<li><code>PATH</code>：系统查找命令的路径</li>
+</ul>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621205916063.png" alt="image-20210621205916063"></p>
+<p><strong>添加自己的环境变量</strong></p>
+<p><code>PATH=&quot;$PATH&quot;:[要添加的环境变量]</code></p>
+<ul>
+<li><code>PS1</code>：定义系统提示符的变量</li>
+</ul>
+<p><em><code>PS1</code>无法使用<code>env</code>指令来查看，只能使用<code>set</code>看到</em></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621205826172.png" alt="image-20210621205826172"></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621210557836.png" alt="image-20210621210557836"></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621211003520.png" alt="image-20210621211003520"></p>
+<h2 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h2><table>
+<thead>
+<tr>
+<th>位置参数变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$n</code></td>
+<td><code>n</code>为数字，<code>$0</code>代表命令本身，<code>$1~$9</code>代表第1到9个参数，10及以上的参数需要使用大括号包含，如<code>$&#123;10&#125;</code></td>
+</tr>
+<tr>
+<td><code>$*</code></td>
+<td>这个变量代表命令行中所有的参数，<code>$*</code>把所有的参数看成一个整体</td>
+</tr>
+<tr>
+<td><code>$@</code></td>
+<td>这个变量也代表命令行中所有的参数，不过<code>$@</code>把每个参数区别对待</td>
+</tr>
+<tr>
+<td><code>$#</code></td>
+<td>这个参数代表命令行中所有参数的个数</td>
+</tr>
+</tbody></table>
+<p><strong>关于<code>$*</code>和<code>$@</code>的区别</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621213644303.png" alt="image-20210621213644303"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 观察 <span class="variable">$@</span> 和 $* 的区别</span></span><br><span class="line"></span><br><span class="line">echo &quot;第一个for循环&quot;</span><br><span class="line">for i in &quot;$*&quot;</span><br><span class="line">        do</span><br><span class="line">                echo $i</span><br><span class="line">        done</span><br><span class="line"></span><br><span class="line">echo &quot;第二个for循环&quot;</span><br><span class="line">for y in &quot;$@&quot;</span><br><span class="line">        do</span><br><span class="line">                echo $y</span><br><span class="line">        done</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621213733548.png" alt="image-20210621213733548"></p>
+<h2 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h2><table>
+<thead>
+<tr>
+<th>预定义变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$?</code></td>
+<td>最后一次的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0（具体是哪个数，由命令自己来决定），则证明上一个命令执行不正确。</td>
+</tr>
+<tr>
+<td><code>$$</code></td>
+<td>当前进程的进程号（PID）</td>
+</tr>
+<tr>
+<td><code>$!</code></td>
+<td>后台运行最后一个进程的进程号（PID）</td>
+</tr>
+</tbody></table>
+<h3 id="接收键盘输入"><a href="#接收键盘输入" class="headerlink" title="接收键盘输入"></a>接收键盘输入</h3><p><code>read [选项] [变量名]</code></p>
+<p>选项：</p>
+<p><code>-p 提示信息</code>：在等待read输入时，输出提示信息</p>
+<p><code>-t 秒数</code>：read指令会一直等待用户输入，使用此选项可以制定等待时间</p>
+<p><code>-n 字符数</code>：read指令只接收指定的字符数，就会执行</p>
+<p><code>-s</code>：隐藏输入的数据，适用于机密信息的输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入姓名，等待30秒，把用户输入保存到变量name中</span></span><br><span class="line">read -t 30 -p &quot;请输入姓名：&quot; name</span><br><span class="line">echo &quot;刚刚输入的姓名是：$name&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入年龄，年龄是隐私，使用-s选项隐藏输入</span></span><br><span class="line">read -s -t 30 -p &quot;请输入年龄：&quot; age</span><br><span class="line">echo -e &quot;\n&quot;</span><br><span class="line">echo &quot;刚刚输入的年龄是：$age&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入性别，使用-n选项，只接受一个字符就会执行</span></span><br><span class="line">read -n 1 -t 30 -p &quot;请输入性别（M/F）：&quot; gender</span><br><span class="line">echo -e &quot;\n&quot;</span><br><span class="line">echo &quot;刚刚输入的性别是：$gender&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210621220350577.png" alt="image-20210621220350577"></p>
+<h1 id="Bash的运算符"><a href="#Bash的运算符" class="headerlink" title="Bash的运算符"></a>Bash的运算符</h1><h2 id="数值运算和运算符"><a href="#数值运算和运算符" class="headerlink" title="数值运算和运算符"></a>数值运算和运算符</h2><p>在Bash中，无法直接使用<code>+</code> <code>-</code> <code>*</code> <code>/</code>进行数值运算</p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622163101028.png" alt="image-20210622163101028"></p>
+<h3 id="方法一：declare声明变量类型"><a href="#方法一：declare声明变量类型" class="headerlink" title="方法一：declare声明变量类型"></a>方法一：<code>declare</code>声明变量类型</h3><p><code>declare [+/-] [选项] 变量名</code></p>
+<p>选项</p>
+<p><code>-</code>：给变量设定类型属性</p>
+<p><code>+</code>：取消变量的类型属性</p>
+<p><code>-i</code>：将变量声明为整数型</p>
+<p><code>-x</code>：将变量声明为环境变量</p>
+<p><code>-p</code>：显示指定变量的被声明类型</p>
+<p> <img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622163643467.png" alt="image-20210622163643467"></p>
+<p><strong>实现上面的数值运算</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622163842709.png" alt="image-20210622163842709"></p>
+<h3 id="方法二：expr或let数值运算工具"><a href="#方法二：expr或let数值运算工具" class="headerlink" title="方法二：expr或let数值运算工具"></a>方法二：<code>expr</code>或<code>let</code>数值运算工具</h3><p><strong>实现上面的数值运算</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622164148090.png" alt="image-20210622164148090"></p>
+<p><em>上面的<code>+</code>两侧必须有空格</em></p>
+<h3 id="【推荐】方法三：-运算式-或-运算式"><a href="#【推荐】方法三：-运算式-或-运算式" class="headerlink" title="【推荐】方法三：$((运算式))或$[运算式]"></a>【推荐】方法三：<code>$((运算式))</code>或<code>$[运算式]</code></h3><p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622164835472.png" alt="image-20210622164835472"></p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622165010378.png" alt="image-20210622165010378"></p>
+<h2 id="变量测试与内容替换"><a href="#变量测试与内容替换" class="headerlink" title="变量测试与内容替换"></a>变量测试与内容替换</h2><p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622165239272.png" alt="image-20210622165239272"></p>
+<p><strong>测试表达式<code>x=$&#123;y-新值&#125;</code></strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622165839813.png" alt="image-20210622165839813"></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622170010230.png" alt="image-20210622170010230"></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622170046685.png" alt="image-20210622170046685"></p>
+<h1 id="环境变量配置文件"><a href="#环境变量配置文件" class="headerlink" title="环境变量配置文件"></a>环境变量配置文件</h1><h2 id="环境变量配置文件简介"><a href="#环境变量配置文件简介" class="headerlink" title="环境变量配置文件简介"></a>环境变量配置文件简介</h2><p>环境变量配置文件中主要是定义对系统的操作环境生效的系统默认环境变量，比如<code>PATH</code>、<code>HISTSIZE</code>、<code>PS1</code>、<code>HOSTNAME</code>等默认环境变量。</p>
+<blockquote>
+<p><code>source 配置文件</code>或<code>. 配置文件</code></p>
+<p>配置文件直接立即生效</p>
+</blockquote>
+<p><strong>常见的环境变量配置文件</strong></p>
+<ul>
+<li><code>/etc/profile</code></li>
+<li><code>/etc/profile.d/*.sh</code></li>
+<li><code>/etc/bashrc</code></li>
+<li><code>~/.bash_profile</code></li>
+<li><code>~/.bashrc</code></li>
+</ul>
+<p><strong><code>/etc</code>下的配置文件会对任何登录用户都生效</strong></p>
+<h2 id="环境变量配置文件作用"><a href="#环境变量配置文件作用" class="headerlink" title="环境变量配置文件作用"></a>环境变量配置文件作用</h2><p><strong>环境变量配置文件的生效顺序</strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622172427943.png" alt="image-20210622172427943"></p>
+<p>其中，<code>/etc/profile</code>文件作用：</p>
+<ul>
+<li><code>USER</code>变量</li>
+<li><code>LOGNAME</code>变量</li>
+<li><code>MAIL</code>变量</li>
+<li><code>PATH</code>变量</li>
+<li><code>HOSTNAME</code>变量</li>
+<li><code>HISTSIZE</code>变量</li>
+<li><code>umask</code></li>
+<li>调用<code>/etc/profile.d/*sh</code>文件</li>
+</ul>
+<h2 id="其它配置文件和登录信息"><a href="#其它配置文件和登录信息" class="headerlink" title="其它配置文件和登录信息"></a>其它配置文件和登录信息</h2><h3 id="注销时生效的环境变量配置文件"><a href="#注销时生效的环境变量配置文件" class="headerlink" title="注销时生效的环境变量配置文件"></a>注销时生效的环境变量配置文件</h3><p><code>~/.bash_logout</code></p>
+<h3 id="其它配置文件"><a href="#其它配置文件" class="headerlink" title="其它配置文件"></a>其它配置文件</h3><p><code>~/bash_history</code></p>
+<h3 id="Shell登录信息"><a href="#Shell登录信息" class="headerlink" title="Shell登录信息"></a>Shell登录信息</h3><p><strong>本地终端欢迎信息：<code>/etc/issue</code></strong></p>
+<p><img src="https://gitee.com/wineqq/image/raw/master/img/image-20210622174031199.png" alt="image-20210622174031199"></p>
+<p><strong>远程终端欢迎信息：<code>/etc/issue.net</code></strong></p>
+<ul>
+<li>转义符在<code>/etc/issue.net</code>文件中不能使用</li>
+<li>是否显示欢迎信息，由ssh的配置文件<code>/etc/ssh/sshd_config</code>决定，加入<code>Banner /etc/issue.net</code>行才能显示（需要重启ssh服务）</li>
+</ul>
+<p><strong>登录后欢迎信息：<code>/etc/motd</code></strong></p>
+<p>不管是本地登录，还是远程登录，都可以显示此欢迎信息。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一人千面</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tatocode.github.io/2021/06/22/shell%E7%BC%96%E7%A8%8B/">https://tatocode.github.io/2021/06/22/shell%E7%BC%96%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tatocode.github.io" target="_blank">TatoのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Shell/">Shell</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/wineqq/image/raw/master/img/linux.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2021/06/19/Linux%E5%9F%BA%E7%A1%80/"><img class="prev-cover" src="https://gitee.com/wineqq/image/raw/master/img/linux.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux基础(一)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/06/19/Linux基础/" title="Linux基础(一)"><img class="cover" src="https://gitee.com/wineqq/image/raw/master/img/linux.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-19</div><div class="title">Linux基础(一)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">Shell概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFShell"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">Shell分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%AD%E6%94%AF%E6%8C%81%E7%9A%84Shell"><span class="toc-number">1.3.</span> <span class="toc-text">Linux中支持的Shell</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">Shell脚本的执行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#echo%E8%BE%93%E5%87%BA%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">echo输出命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC"><span class="toc-number">2.2.</span> <span class="toc-text">第一个脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">2.3.</span> <span class="toc-text">执行脚本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bash%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="toc-number">3.</span> <span class="toc-text">Bash的基本功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%A5%E5%85%A8"><span class="toc-number">3.1.</span> <span class="toc-text">历史命令与命令补全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4%E7%9A%84%E8%B0%83%E7%94%A8"><span class="toc-number">3.1.1.</span> <span class="toc-text">历史命令的调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%96%87%E4%BB%B6%E8%A1%A5%E5%85%A8"><span class="toc-number">3.1.2.</span> <span class="toc-text">命令与文件补全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%88%AB%E5%90%8D%E5%92%8C%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">3.2.</span> <span class="toc-text">命令别名和常用快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%88%AB%E5%90%8D"><span class="toc-number">3.2.1.</span> <span class="toc-text">命令别名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">命令的执行顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A9%E5%88%AB%E5%90%8D%E6%B0%B8%E4%B9%85%E7%94%9F%E6%95%88"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">让别名永久生效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%AB%E5%90%8D"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">删除别名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bash%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">3.2.2.</span> <span class="toc-text">Bash常用快捷键</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">3.3.</span> <span class="toc-text">输入输出重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">3.3.1.</span> <span class="toc-text">标准输入输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">3.3.2.</span> <span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">3.3.3.</span> <span class="toc-text">输入重定向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%91%BD%E4%BB%A4%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">3.4.</span> <span class="toc-text">多命令顺序执行与管道符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%91%BD%E4%BB%A4%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="toc-number">3.4.1.</span> <span class="toc-text">多命令顺序执行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dd%E5%91%BD%E4%BB%A4"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">dd命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">3.4.2.</span> <span class="toc-text">管道符|</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#grep"><span class="toc-number">3.4.2.1.</span> <span class="toc-text">grep</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E5%92%8C%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.5.</span> <span class="toc-text">通配符和特殊符号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-number">3.5.1.</span> <span class="toc-text">通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bash%E4%B8%AD%E7%9A%84%E5%85%B6%E5%AE%83%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.5.2.</span> <span class="toc-text">Bash中的其它特殊符号</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bash%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">Bash的变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">4.1.</span> <span class="toc-text">用户自定义的变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F"><span class="toc-number">4.1.1.</span> <span class="toc-text">什么是变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE%E8%A7%84%E5%88%99"><span class="toc-number">4.1.2.</span> <span class="toc-text">变量设置规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">4.1.3.</span> <span class="toc-text">变量的分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.2.</span> <span class="toc-text">环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">4.2.1.</span> <span class="toc-text">环境变量是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.2.2.</span> <span class="toc-text">设置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.2.3.</span> <span class="toc-text">系统常见环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F"><span class="toc-number">4.3.</span> <span class="toc-text">位置参数变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">4.4.</span> <span class="toc-text">预定义变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">4.4.1.</span> <span class="toc-text">接收键盘输入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bash%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text">Bash的运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%BF%90%E7%AE%97%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">5.1.</span> <span class="toc-text">数值运算和运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9Adeclare%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.1.1.</span> <span class="toc-text">方法一：declare声明变量类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9Aexpr%E6%88%96let%E6%95%B0%E5%80%BC%E8%BF%90%E7%AE%97%E5%B7%A5%E5%85%B7"><span class="toc-number">5.1.2.</span> <span class="toc-text">方法二：expr或let数值运算工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%80%90%E6%8E%A8%E8%8D%90%E3%80%91%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A-%E8%BF%90%E7%AE%97%E5%BC%8F-%E6%88%96-%E8%BF%90%E7%AE%97%E5%BC%8F"><span class="toc-number">5.1.3.</span> <span class="toc-text">【推荐】方法三：$((运算式))或$[运算式]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">5.1.4.</span> <span class="toc-text">运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%86%85%E5%AE%B9%E6%9B%BF%E6%8D%A2"><span class="toc-number">5.2.</span> <span class="toc-text">变量测试与内容替换</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text">环境变量配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-number">6.1.</span> <span class="toc-text">环境变量配置文件简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8"><span class="toc-number">6.2.</span> <span class="toc-text">环境变量配置文件作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%92%8C%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF"><span class="toc-number">6.3.</span> <span class="toc-text">其它配置文件和登录信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%94%80%E6%97%B6%E7%94%9F%E6%95%88%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.3.1.</span> <span class="toc-text">注销时生效的环境变量配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.3.2.</span> <span class="toc-text">其它配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shell%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF"><span class="toc-number">6.3.3.</span> <span class="toc-text">Shell登录信息</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/wineqq/image/raw/master/img/linux.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By 一人千面</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
